@@ -22,24 +22,38 @@ class Login(Resource):
         self.login_serailzer = LoginSerailizer()
 
     def post(self):
+        """
+        登录接口
+        @param email
+        @:param password
+        @response:
+        {
+          "code": 200,
+          "res": {
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZXhwIjoxNTk3OTI3NTc1LjgxMTM2fQ.hOScYPYd-mvmCorz6in1Jf9tTou1X360aWqOPZ5-8ms"
+          },
+          "message": "登录成功"
+        }
+        :return:
+        """
         parser_args = self.login_serailzer.login_parser().parse_args()
         email = parser_args.get('email')
         password = parser_args.get('password')
         queryset = User.query.filter_by(email=email).first()
         if queryset:
-            status_verify = queryset.verify_password(password)
-            token = AuthBusiness.generate_auth_token(queryset.id)
+            status_verify = queryset.verify_password(password)   #hash 密码校验
             if  status_verify:
+                token = AuthBusiness.generate_auth_token(queryset.id)   # 生成秘钥
                 res = {
                     "code":200,
-                    "data":{"token":token},
+                    "res":{"token":token},
                     "message":"登录成功"
                 }
                 return jsonify(res)
 
         res = {
             "code": 500,
-            "data": {},
+            "res": {},
             "message": "账号密码是错误"
         }
         return jsonify(res)

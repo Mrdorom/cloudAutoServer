@@ -24,6 +24,21 @@ class RegisterUser(Resource):
         self.auth = AuthBusiness()
 
     def post(self):
+        """
+        注册接口
+        @param username
+        @param email
+        @:param password
+        @response:{
+              "code": 200,
+              "res": {
+                "role": 1,
+                "username": "Dorom"
+              },
+              "message": "注册成功"
+            }
+        :return:
+        """
         args = user_serializer.register_parser().parse_args()
         username = args.get("username")
         password = args.get("password")
@@ -36,11 +51,11 @@ class RegisterUser(Resource):
             args['email'] = quryset.email
             args['password'] = quryset.password
             data = {"id":quryset.id,"role":quryset.role}
-            return jsonify({"code":500,"data":data,"message":"{0} 已注册".format(email)})
+            return jsonify({"code":500,"res":data,"message":"{0} 已注册".format(email)})
         create_at = str(time.time())
         role = 1
         user = User(username=username,email=email,password=password,role=role,create_at=create_at)
         db.session.add(user)
         db.session.commit()
         data = {"username":username,"role":role}
-        return jsonify({"code":200,"data":data,"message":"注册成功"})
+        return jsonify({"code":200,"res":data,"message":"注册成功"})
