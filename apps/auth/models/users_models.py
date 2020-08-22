@@ -4,13 +4,9 @@
 # @Author : dorom
 # @File : users_models.py
 # @Software: PyCharm
-import time
 
 from werkzeug.security import generate_password_hash, check_password_hash
-
 from library.api.db import db
-import jwt,time
-from apps.auth.settings.config import *
 
 """
 |param|type|example|expline|
@@ -35,7 +31,6 @@ class User(db.Model):
     password = db.Column(db.String(256),nullable=False)
     create_at = db.Column(db.String(128),nullable=True)
     update_at = db.Column(db.String(128))
-
 
     @classmethod
     def hash_password(self, password):
