@@ -10,7 +10,7 @@ from flask import Flask,jsonify
 from library.api.parse import format_response
 from library.api.db import db
 
-# from public_config import SERVE_ENV
+from flask_jwt_extended import JWTManager
 
 
 class TFlask(Flask):
@@ -86,6 +86,7 @@ def register_extensions(app):
 
 def tflask_main(config):
     app = TFlask(config.SERVER_ENV)
+    jwt = JWTManager(app)
     app.config.from_object(config)
     register_extensions(app)
     return app

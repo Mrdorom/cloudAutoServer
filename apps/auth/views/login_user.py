@@ -12,8 +12,9 @@ except:
 
 from flask import jsonify
 from apps.auth.models.users_models import User
-from apps.auth.business.auth_business import AuthBusiness
+from apps.auth.business.auth_business import generate_auth_token
 from apps.auth.schema.user_schema import LoginSerailizer
+from flask_jwt_extended import  create_access_token,create_refresh_token
 
 
 class Login(Resource):
@@ -43,10 +44,12 @@ class Login(Resource):
         if queryset:
             status_verify = queryset.verify_password(password)   #hash 密码校验
             if  status_verify:
-                token = AuthBusiness.generate_auth_token(queryset.id)   # 生成秘钥
+                access_token = create_access_token(identity=queryset.id, fresh=True)
+                refresh_token = create_access_token(queryset.id)   # 生成秘钥
                 res = {
                     "code":200,
-                    "res":{"token":token},
+                    "res":{"access_token":access_token,
+                           "refresh_token": refresh_token},
                     "message":"登录成功"
                 }
                 return jsonify(res)
