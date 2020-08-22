@@ -68,6 +68,7 @@ class UserRoleSerailizer(Schema):
         :return:
         """
         user_role_parser = reqparse.RequestParser()
-        user_role_parser.add_argument('user_id',type=int,required=True,help='用户id必须为int类型')
-        user_role_parser.add_argument('roel_id',type=int,required=True,help='roel_id必须为int类型')
+        # user_role_parser.add_argument('token',type=str,location='headers',required=True)
+        user_role_parser.add_argument('user_id',type=int,location='json',required=True,help='用户id必须为int类型')
+        user_role_parser.add_argument('role_id',type=int,location='json',required=True,help='roel_id必须为int类型')
         return user_role_parser
