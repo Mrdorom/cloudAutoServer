@@ -18,7 +18,6 @@ CREATE TABLE `user`(
 --- table structure for role
 --- -------------------------------------
 
-DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`(
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `role_name` VARCHAR(100) NOT NULL COMMENT '角色名称',
@@ -28,11 +27,12 @@ CREATE TABLE `role`(
     `update_at` VARCHAR(128) DEFAULT NULL COMMENT "更新时间",
 	 UNIQUE KEY  role_name (role_name)
      PRIMARY KEY (`id`) USING BTREE
-     )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "权限表";
+     )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --- -------------------------------------
 --- records for role
 --- -------------------------------------
+
 BEGIN;
 INSERT INTO `role` VALUES (1,'admin', '超级管理员',0, '1548224396000', null);
 INSERT INTO `role` VALUES (2,'dev', '开发',0, '1548224396000', null);
@@ -43,9 +43,15 @@ INSERT INTO `role` VALUES (6,'owner', '项目管理员',0, '1548224396000', null
 INSERT INTO `role` VALUES (7,'visitor', '访客',0, '1548224396000', null);
 COMMIT;
 
+--- -------------------------------------
+--- table structure for user_role
+--- -------------------------------------
 
-
-
-
-
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role`(
+    id INT(11) AUTO_INCREMENT,
+    user_id INT(11) NOT NULL COMMENT "用户id",
+    role_id INT(11) NOT NULL COMMENT "角色id",
+    PRIMARY KEY(`id`)
+    )ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 

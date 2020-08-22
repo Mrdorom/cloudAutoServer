@@ -10,9 +10,9 @@ from library.api.db import db
 
 class UserRole(db.Model):
 
-    id = db.Coulmn(db.Interge(),autoincrement=True)
-    user_id = db.Coulmn(db.Interge(),nulltable=True)
-    role_id = db.Coulmn(db.Interge(),nulltable=True)
+    id = db.Column(db.Integer(),autoincrement=True,primary_key=True)
+    user_id = db.Column(db.Integer(),nullable=True)
+    role_id = db.Column(db.Integer(),nullable=True)
 
     def __repr__(self):
         return self.id
