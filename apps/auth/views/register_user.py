@@ -13,15 +13,12 @@ except:
     from flask_restful import Api,Resource,fields,marshal_with
 from apps.auth.schema.user_schema import RegisterSerialize
 from apps.auth.models.users_models import User
-from apps.auth.business.auth_business import AuthBusiness
 from library.api.db import db
 
 user_serializer = RegisterSerialize()
 
 
 class RegisterUser(Resource):
-    def __init__(self):
-        self.auth = AuthBusiness()
 
     def post(self):
         """
