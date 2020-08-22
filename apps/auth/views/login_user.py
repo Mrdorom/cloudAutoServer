@@ -12,7 +12,6 @@ except:
 
 from flask import jsonify
 from apps.auth.models.users_models import User
-from apps.auth.business.auth_business import generate_auth_token
 from apps.auth.schema.user_schema import LoginSerailizer
 from flask_jwt_extended import  create_access_token,create_refresh_token
 

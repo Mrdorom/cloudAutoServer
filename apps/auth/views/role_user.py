@@ -38,7 +38,7 @@ class UserRoleView(Resource):
             res = {
                 "code": 201,
                 "res":data,
-                "message":"用户有用户角色"
+                "message":"用户已有角色"
             }
             return jsonify(res)
         user_role = UserRole(user_id=user_id,role_id=role_id)
